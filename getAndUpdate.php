@@ -1,6 +1,5 @@
 <?php
 include_once("services.php");
-
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 header('Access-Control-Allow-Methods: POST, GET');
@@ -36,9 +35,8 @@ if($request->operation == 'get'){
     $obj->operation = "update";
     echo json_encode($obj);
 }else{
+    $obj->data = json_encode($std_details);
     $obj->operation = "no operation to done";
     echo json_encode($obj);
 }
-
-
 ?>

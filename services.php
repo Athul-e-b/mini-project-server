@@ -18,8 +18,11 @@ function getDetails ($sql){
 }
 function updateDetails($sql,$id,$table){
     include("connection.php");
-    mysqli_query($connect,$sql);
-    return getDetails ("SELECT * FROM '$table' WHERE std_id='$id'");
+    if(mysqli_query($connect,$sql)){
+        return true;
+    }else{
+        return false;
+    }   
 }
 
 function insertData($sql){
