@@ -31,12 +31,15 @@ if($request->operation == 'get'){
     echo json_encode($obj);
  }
 
-}elseif($request->operation == 'update'){
-    $obj->operation = "update";
-    echo json_encode($obj);
-}else{
-    $obj->data = json_encode($std_details);
-    $obj->operation = "no operation to done";
-    echo json_encode($obj);
+}elseif($request->operation != 'get'){
+  $data = getDetails("SELECT * FROM `details` WHERE $request->operation='$request->id'");
+  $obj->data = $data;
+  $obj->status = true;
+  echo json_encode($obj);
 }
+// else{
+//     $obj->data = json_encode($std_details);
+//     $obj->operation = "no operation to done";
+//     echo json_encode($obj);
+// }
 ?>
