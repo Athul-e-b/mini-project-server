@@ -27,8 +27,9 @@
       }
     }
     if (move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
+      $userTable = "UPDATE `users` SET `name`='$name',`email`='$email',`phone`='$phone' WHERE `std_id`='$id'";
       $sql = "UPDATE `details` SET `reg_number`='$regno',`name`='$name',`branch`='$branch',`phone`='$phone',`email`='$email',`photo`='$targetFileName',`address`='$address' WHERE `std_id`='$id'";
-      if(updateDetails($sql,$id,'details')){
+      if(updateDetails($sql,$id,'details') && updateDetails($userTable,$id,'users')){
         $response->message = 'Details updated successfully';
         $response->status = true;
         echo json_encode($response);
@@ -43,8 +44,10 @@
         echo json_encode($response);
     }
   } else {
+    $userTable = "UPDATE `users` SET `name`='$name',`email`='$email',`phone`='$phone' WHERE `id`='$id'";
     $sql = "UPDATE `details` SET `reg_number`='$regno',`name`='$name',`branch`='$branch',`phone`='$phone',`email`='$email',`address`='$address' WHERE `std_id`='$id'";
-    if(updateDetails($sql,$id,'details')){
+    if(updateDetails($sql,$id,'details') && updateDetails($userTable,$id,'users')){
+      
       $response->message = 'Details updated successfully';
       $response->status = true;
       echo json_encode($response);
